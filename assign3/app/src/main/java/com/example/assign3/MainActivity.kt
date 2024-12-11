@@ -3,6 +3,8 @@ package com.example.assign3
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.time.LocalDateTime
@@ -11,6 +13,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private var meetings: MutableList<Meeting> = mutableListOf()
+    private lateinit var adapter: MeetingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +23,11 @@ class MainActivity : AppCompatActivity() {
         meetings = readAndParseCSV(resources)
         sortMeetingsByDateTimeAscending(meetings)
 
-        // Log the parsed meetings (for debugging purposes)
-        meetings.forEach {
-            println(it)
-        }
+        // Setup RecyclerView
+        val rvMeeting = findViewById<RecyclerView>(R.id.rvMeetings)
+        rvMeeting.layoutManager = LinearLayoutManager(this)
+        adapter = MeetingAdapter(meetings)
+        rvMeeting.adapter = adapter
     }
 
     private fun readAndParseCSV(resources: Resources): MutableList<Meeting> {
