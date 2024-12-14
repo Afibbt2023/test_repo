@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MeetingAdapter(private var meetingList: List<Meeting>) :
     RecyclerView.Adapter<MeetingAdapter.MeetingViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeetingViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.item_meeting, parent, false)
